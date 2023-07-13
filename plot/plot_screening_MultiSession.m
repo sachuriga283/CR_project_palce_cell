@@ -104,6 +104,7 @@ for k =  1:length(hd)
 
         %     map = FiringMap([time_frame cx_n cy_n],[activity_s'],'smooth',options.smooth,'nBins',[nbin nbin]);
         map = analyses.map([time_frame cx_n cy_n],activity_s','smooth',options.smooth,'binWidth',nbin);
+        [pos,ind] = pos_filtered_with_speed(position);
         
         plot.colorMap(map.z,map.time,'bar','on')
 

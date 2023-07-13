@@ -1,0 +1,12 @@
+function [ map.z, map.time] = rate_map_filtered_with_speed(map.z,map.time,ind)
+
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+temp1=map.z;
+temp2=map.time;
+
+map.z = temp1(ind);
+map.time = temp2(ind);
+
+end
+
