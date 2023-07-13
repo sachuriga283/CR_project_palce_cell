@@ -6,6 +6,5 @@ v = general.speed(position);
 ind=find(v>0.05);
 pos=position(:,ind);
 
-
 end
 
