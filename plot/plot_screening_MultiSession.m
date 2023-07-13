@@ -55,6 +55,8 @@ for k =  1:length(hd)
     cy_n=position(:,3);
     unit_id=spike_train(1).unit_id;
 
+    [pos,~] = pos_filtered_with_speed(position);
+
     spike_train(k).spike_hd
 
     for k3=1:1:n
@@ -103,9 +105,8 @@ for k =  1:length(hd)
         subplot(s1,s2,k3)
 
         %     map = FiringMap([time_frame cx_n cy_n],[activity_s'],'smooth',options.smooth,'nBins',[nbin nbin]);
-        map = analyses.map([time_frame cx_n cy_n],activity_s','smooth',options.smooth,'binWidth',nbin);
-        [pos,ind] = pos_filtered_with_speed(position);
-        
+        map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin);
+
         plot.colorMap(map.z,map.time,'bar','on')
 
         [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);

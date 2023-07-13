@@ -4,7 +4,7 @@ function [pos,ind] = pos_filtered_with_speed(position)
 
 v = general.speed(position);
 ind=find(v>0.05);
-pos=position(:,ind);
+pos=position(ind,:);
 
 end
 
