@@ -18,10 +18,9 @@ time_frame = time_f_t(2:length(dlc_m)+1);
 [hd, positions] = load_positions(time_frame,dlc_m(:,2),dlc_m(:,3),dlc_m(:,5),dlc_m(:,6),dlc_m(:,8),dlc_m(:,9));
 
 %Cordination of central brain
-cx=positions(:,2);
-cy=positions(:,3);
-cx_n=normalize(cx,"range");
-cy_n=normalize(cy,"range");
+
+cx_n=positions(:,2);
+cy_n=positions(:,3);
 spike_train{5,1}=unit_id;
 
 % spikes and spike_id with TTL

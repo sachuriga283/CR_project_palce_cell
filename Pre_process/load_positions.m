@@ -29,6 +29,8 @@ end
 temp_positions(:,1) = time_frame;
 temp_positions(:,2) = cx;
 temp_positions(:,3) = cy;
+temp_positions(:,2) = normalize(cx,"range");
+temp_positions(:,3) = normalize(cy,"range");
 
 pos_N(:,1) = time_frame;
 pos_N(:,2) = sx;

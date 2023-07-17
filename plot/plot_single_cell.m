@@ -16,14 +16,13 @@ arguments
 end
 
 nbin = options.binWidth;
-time_frame=positions(:,1);
-cx=positions(:,2);
-cy=positions(:,3);
-cx_n=normalize(cx,"range");
-cy_n=normalize(cy,"range");
+cx_n=positions(:,2);
+cy_n=positions(:,3);
 
-velocity = general.speed(positions);
+
 time_speed = positions(:,1);
+[pos,ind] = pos_filtered_with_speed(positions);
+velocity = general.speed(positions);
 
 unit_id=spike_train{5,1};
 
@@ -64,7 +63,7 @@ for k3=1:length(unit_id)
     subplot(4,8,[7 8 15 16])
     activity_s=spike_train{1,k3};
 
-    map = analyses.map([time_frame cx_n cy_n],activity_s','smooth',options.smooth,'binWidth',nbin);
+    map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin);
     plot.colorMap(map.z,map.time,'bar','off')
     hold on
     [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);
@@ -112,13 +111,19 @@ for k3=1:length(unit_id)
     subplot(4,8,[1 2 9 10])
     plot(1)
     boader_score = analyses.borderScore(map.z, fieldsMap, fields);
-    [grid_score, ~] = analyses.gridnessScore(rxx);
 
-    [hist_spike,~] =  histcounts(activity_s,time_speed);
-    speed=velocity(2:end)';
+    [grid_score, ~] = analyses.gridnessScore(rxx);
+    hist_spike=zeros(1,length(time_speed));
+    [hist_spike(2:end),~] =  histcounts(activity_s,time_speed);
+    
+    speed=velocity;
     firingRate=hist_spike/0.4;
     span=20;
-    speed_scores = analyses.speedScore(speed', firingRate', span);
+    firingRate_s=firingRate(ind);
+
+    speed_s=speed(ind);
+    speed_st = speed_s;
+    speed_scores = analyses.speedScore(speed_st, firingRate_s', span);
 
     ax3 = gca;
     ax3.Box = 'off'

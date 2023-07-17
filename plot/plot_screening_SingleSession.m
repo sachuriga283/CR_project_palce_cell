@@ -39,8 +39,11 @@ cx_n=normalize(cx,"range");
 cy_n=normalize(cy,"range");
 unit_id=spike_train{5,1};
 
-[pos,~] = pos_filtered_with_speed(positions);
+position(:,1)=time_frame;
+position(:,2)=cx_n;
+position(:,3)=cy_n;
 
+[pos,~] = pos_filtered_with_speed(position);
 
 for k3=1:1:n
 
@@ -92,7 +95,7 @@ for k3=1:1:n
     activity_s=spike_train{1,k3};
 
     %     map = FiringMap([time_frame cx_n cy_n],[activity_s'],'smooth',options.smooth,'nBins',[nbin nbin]);
-    map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin);
+    map = analyses.map(position,activity_s','smooth',options.smooth,'binWidth',nbin);
     plot.colorMap(map.z,map.time,'bar','on')
 
     [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);
