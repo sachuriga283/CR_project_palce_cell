@@ -44,8 +44,11 @@ ttl_segments.murge_ttl = vertcat(ttl_segments.session_ttl{:});
 
 spikes_t = dir([folder_recording '/' animalID '_' day_num '*' 'phy' '*' '/spike_times.npy']);
 spikes_id = dir([folder_recording '/' animalID '_' day_num '*' 'phy' '*' '/spike_clusters.npy']);
+spikes_amplitude = dir([folder_recording '/' animalID '_' day_num '*' 'phy' '*' '/amplitudes.npy']);
+
 spike.spikes_t = double(readNPY([spikes_t.folder '/' spikes_t.name]))/30000;
 spike.spike_id = double(readNPY([spikes_id.folder '/' spikes_id.name]));
+spike.spike_amplitude = double(readNPY([spikes_amplitude.folder '/' spikes_amplitude.name]));
 
 for k2=1:length(session_num)
     sessions = session_num(k2)

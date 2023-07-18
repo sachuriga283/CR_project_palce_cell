@@ -18,17 +18,16 @@ end
 nbin = options.binWidth;
 cx_n=positions(:,2);
 cy_n=positions(:,3);
-
-
 time_speed = positions(:,1);
 [pos,ind] = pos_filtered_with_speed(positions);
 velocity = general.speed(positions);
-
 unit_id=spike_train{5,1};
 
 for k3=1:length(unit_id)
 
-    f=figure(k3);
+    gaf=figure(k3);
+    scrsz=get(0,'ScreenSize');
+    set(gaf,'Position',scrsz);
     clear acitivity
     clear activity_s
     clear spikehd
@@ -38,8 +37,12 @@ for k3=1:length(unit_id)
     activity = spike_train{3,k3};
     spikehd = spike_train{4,k3};
     spike_t = spike_train{1,k3};
+    amplitude = spike_train{6,k3};
+ 
+    % plot amplitude
+    subplot(4,8,[17 18 19 20])
 
-    % plot
+    scatter(spike_t,amplitude,3,'filled')
 
     %plot raw activity
     subplot(4,8,[5 6 13 14])
@@ -146,7 +149,5 @@ for k3=1:length(unit_id)
     bar(centers,counts)
     title(['theta index' ' ' num2str(thetaInd)])
 
-
 end
-
 end

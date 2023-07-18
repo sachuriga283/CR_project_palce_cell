@@ -10,6 +10,7 @@ function [spike_train,hd,positions] = load_spike_single_session(time_f_t, spike,
 spikes_v = find(spike.spikes_t>time_f_t(1));
 Spike = spike.spikes_t(spikes_v);
 spike_id = spike.spike_id(spikes_v);
+Amplitude = spike.spike_amplitude(spikes_v);
 
 % calculate spike position and spike hd
 spike_train=cell(4,length(unit_id));
@@ -43,7 +44,8 @@ for k=1:1:length(unit_id)
     activity.y = cy_n(position_s);
     spike_train{3,k} = activity;
     spike_train{4,k} = hd(position_s);
-
+    spike_train{6,k} = Amplitude(id);
+    
 end
 
 

@@ -28,14 +28,17 @@ time_f_t = time_s(states_s==-6);
 cd(folder_recording)
 spikes_t = dir([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy']);
 spikes_id = dir([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy']);
+spikes_amplitude = dir([animalID '_' day_num '*' session_num '*' 'phy' '*' '/amplitudes.npy']);
+
 
 spike.spikes_t = double(readNPY([spikes_t.folder '/' spikes_t.name]))/30000;
 spike.spike_id = double(readNPY([spikes_id.folder '/' spikes_id.name]));
+spike.spike_amplitude  = double(readNPY([spikes_amplitude.folder '/' spikes_amplitude.name]));
+
 
 % Load dlc tracking file
 cd(video_folder)
 v_name = dir([animalID '_' '*' day_num '*.csv']);
 dlc_m = readmatrix(v_name.name);
-
 
 end
