@@ -95,7 +95,7 @@ for k3=1:1:n
     activity_s=spike_train{1,k3};
 
     %     map = FiringMap([time_frame cx_n cy_n],[activity_s'],'smooth',options.smooth,'nBins',[nbin nbin]);
-    map = analyses.map(position,activity_s','smooth',options.smooth,'binWidth',nbin);
+    map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin);
     plot.colorMap(map.z,map.time,'bar','on')
 
     [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);
