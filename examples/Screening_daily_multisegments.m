@@ -1,8 +1,8 @@
 clear all
 close all
 
-animalID='65091';
-day_num = '2023-07-17';
+animalID='65165';
+day_num = '2023-07-18';
 session_num = ['A' 'B' 'C'];
 folder_recording = 'Q:/sachuriga/OpenEphys/';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
