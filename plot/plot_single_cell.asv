@@ -43,7 +43,7 @@ for k3=1:length(unit_id)
     amplitude = spike_train{6,k3};
 
     % plot amplitude
-    subplot(4,8,[17 18])
+    subplot(4,8,[17 18 19 20])
     scatter(spike_t,amplitude,3,'filled')
     ax4 = gca;
     ax4.Box = 'off';
@@ -152,11 +152,13 @@ for k3=1:length(unit_id)
     ax1.Box = 'off';
     ax1.Color="none";
 
+
     subplot(4,8,[11 12]);
     b = bar(centers,counts);
     b.EdgeColor='None';
     b.FaceColor='black';
     b.BarWidth=1;
+
 
     title(['theta index' ' ' num2str(thetaInd)])
     ax2 = gca;
@@ -168,21 +170,25 @@ for k3=1:length(unit_id)
     p.Color='red';
     p.LineWidth=2;
 
-    subplot(4,8,[19 20])
-    %LFP spectral
+    % LFP spectral
     clear lfp
     ch_i = ch_id(k3);
     lfp(:,1)=continuous.timestamps;
     lfp(:,2)=continuous.samples(ch_i,:);
-    [spectrogram,t,f] = MTSpectrogram(lfp,'show','on','range',[0 100],'cutoffs',[0 13]);
+
+    [spectrogram,t,f] = MTSpectrogram(lfp,'show','on','range',[0 17],'cutoffs',[6 ]);
     colorbar
 
-%     bands = SpectrogramBands(spectrogram,f)
-%     plot(t,bands.delta)
-%     plot(lfp(:,1),double(continuous.samples(ch_i,:)));
-%     pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[4 17]);
-%     % plot(hz,Power)
-%     % xlim([0 20])
+
+    bands = SpectrogramBands(spectrogram,f)
+
+    plot(t,bands.delta)
+
+    plot(lfp(:,1),double(continuous.samples(ch_i,:)));
+    pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[4 17]);
+
+    % plot(hz,Power)
+    % xlim([0 20])
 
 end
 

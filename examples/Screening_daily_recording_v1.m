@@ -2,7 +2,7 @@ clear all
 close all
 
 animalID='65165';
-day_num = '2023-07-19';
+day_num = '2023-07-20';
 session_num = 'A';
 folder_recording = 'Q:\sachuriga\OpenEphys';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
@@ -12,6 +12,10 @@ save_path='Q:\sachuriga\Record_archive\Record_examples';
 %% Load data
 % Load unit id
 [unit_id] = load_unitid(animalID,day_num,folder_recording);
+[ch_id] = load_best_ch(animalID,day_num,folder_recording);
+
+% Load LFP
+[continuous] = load_LFP(animalID,day_num,folder_recording,session_num);
 
 % Load spike and dlc tracking data
 [time_f_t, spike, dlc_m] = load_data(animalID, ...
