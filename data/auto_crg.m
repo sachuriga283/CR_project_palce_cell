@@ -4,7 +4,16 @@
 %   USAGE
 %       [counts,centers,thetaInd] = auto_crg(spikes)
 %       spikes          vector of spike timestamps
-%       
+
+%
+%    <options>      optional list of property-value pairs (see table below)
+%
+%    =========================================================================
+%     Properties    Values
+%    -------------------------------------------------------------------------
+%     'numBins'     101  % 10 msec
+%     'range'       500  % +/- 500 msec
+%    =========================================================================
 %   OUTPUT
 %       counts          bin counts from histogram of autocorrelation
 %       centers         bin centers from histogram of autocorrelation
@@ -20,35 +29,27 @@
 
 function [counts,centers,thetaInd] = auto_crg(spikes,varargin)
 
-%% check input
-if helpers.isdvector(spikes) < 1
-    error('Input should be a vector of spike times');
-end
-
 %% binning
 % numBins = 101; % 10 msec
 numBins = 81 ; % 10 msec
 % range = 500;   % +/- 500 msec
 range = 20;   % +/- 500 msec
 
-for i = 1:2:length(varargin)
-  if ~ischar(varargin{i})
-    error(['Parameter ' num2str(i+1) ' is not a property ']);
-  end
-  switch(lower(varargin{i}))
-		case 'numBins'
-			numBins = varargin{i+1};
-			if ~isdscalar(binSize,'>0')
-				error('Incorrect value for property ''numBin'' ');
-			end
-      case 'range'
-			range = varargin{i+1};
-			if ~isdscalar(smooth,'>=0')
-				error('Incorrect value for property ''range'' ');
-			end
-      otherwise
-			error(['Unknown property ''' num2str(varargin{i}) '''']);
-  end
+for i = 1:2:length(varargin),
+
+    if ~ischar(varargin{i}),
+        error(['Parameter ' num2str(i+1) ' is not a property ']);
+    end
+
+    switch(lower(varargin{i})),
+        case 'numbins',
+            numBins = varargin{i+1};
+        case 'range',
+            range = varargin{i+1};
+        otherwise,
+            error(['Unknown property ''' num2str(varargin{i})]);
+    end
+
 end
 
 %% normalize spike times (start at 0, and sec to msec)
@@ -67,7 +68,7 @@ withinRange = triMatSqueeze(triMatSqueeze >= -range & triMatSqueeze <= range & t
 [counts centers] = hist(withinRange,numBins);
 % set zero-lag to max
 zeroLag = round(numBins/2);
-counts(zeroLag) = nanmax(counts([1:zeroLag-1,zeroLag+1:end]));    
+counts(zeroLag) = nanmax(counts([1:zeroLag-1,zeroLag+1:end]));
 
 %% FFT
 rsrate = 500;
