@@ -70,7 +70,7 @@ for k3=1:length(unit_id)
     % plot place cell
     subplot(4,8,[7 8 15 16])
     activity_s=spike_train{1,k3};
-    map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin);
+    map = analyses.map(positions,activity_s','smooth',options.smooth,'binWidth',nbin);
     plot.colorMap(map.z,map.time,'bar','off')
     hold on
     [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);
@@ -148,6 +148,7 @@ for k3=1:length(unit_id)
     subplot(4,8,[3 4])
     calc.ISI(activity_s,1)
     [counts,centers,thetaInd] = calc.thetaIndex(activity_s');
+    [counts,centers,thetaInd] = auto_crg(activity_s');
     ax1 = gca;
     ax1.Box = 'off';
     ax1.Color="none";
@@ -163,27 +164,49 @@ for k3=1:length(unit_id)
     ax2.Box = 'off';
     ax2.Color="none";
     hold on
-    smoothed = general.smoothGauss(counts,0.5)
+    smoothed = general.smoothGauss(counts,0.5);
     p = plot(centers,smoothed);
     p.Color='red';
     p.LineWidth=2;
 
-    subplot(4,8,[19 20])
-    %LFP spectral
-    clear lfp
-    ch_i = ch_id(k3);
-    lfp(:,1)=continuous.timestamps;
-    lfp(:,2)=continuous.samples(ch_i,:);
-    [spectrogram,t,f] = MTSpectrogram(lfp,'show','on','range',[0 100],'cutoffs',[0 13]);
-    colorbar
+%     subplot(4,8,[19 20])
+%     %LFP spectral
+%     clear lfp
+%     ch_i = ch_id(k3);
+%     pre_lfp=continuous.samples(ch_i,:);
+%     temp_lfp=double(pre_lfp)*0.1949999928474426;
+% 
+%     temp_time = continuous.timestamps;
+%     decimate_rate=150;
+%     clear lfp
+%     lfp(:,1) =  decimate(temp_time,decimate_rate);
+%     lfp(:,2) = decimate(temp_lfp,decimate_rate);
+% 
+% 
+%     [logTransformed,spectrogram,t,f] = MTSpectrogram(lfp,'show','on','range',[0 60],'cutoffs',[3 8],'tapers',[3 5],'window',20);
+%     colorbar
+% 
+%     h = heatmap(logTransformed)
+%     h.GridVisible='off'
+%     colormap jet
 
-%     bands = SpectrogramBands(spectrogram,f)
+%     bands = SpectrogramBands(spectrogram,f); 
+%     csd = CSD(f_lfp);
+%     PlotCSD(csd,'lfp')
+% 
 %     plot(t,bands.delta)
+% 
 %     plot(lfp(:,1),double(continuous.samples(ch_i,:)));
-%     pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[4 17]);
+%     pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[0 30]);
 %     % plot(hz,Power)
 %     % xlim([0 20])
 
 end
+
+
+[s_po,s_neg] = Cal_sem(logTransformed,2);
+x=f;
+y=mean(logTransformed,2);
+ploterr(x',y',s_po,s_neg)
 
 end
