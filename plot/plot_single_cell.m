@@ -155,8 +155,8 @@ for k3=1:length(unit_id)
     subplot(4,8,[11 12]);
     b = bar(centers,counts);
     b.EdgeColor='None';
-    b.FaceColor='black';
-    b.BarWidth=1;
+    b.FaceColor=1/255*[127 0 255]';
+    b.BarWidth=0.9;
     title(['theta index' ' ' num2str(thetaInd)])
 
     ax2 = gca;
@@ -172,7 +172,7 @@ for k3=1:length(unit_id)
     [counts1,centers1,thetaInd1] = auto_crg(activity_s','numbins',81,'range',40);
     b1 = bar(centers1,counts1);
     b1.EdgeColor='None';
-    b1.FaceColor='black';
+    b1.FaceColor=1/255*[127 0 255]';
     b1.BarWidth=1;
 
     subplot(4,8,[27 28])
