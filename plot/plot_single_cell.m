@@ -1,4 +1,4 @@
-function plot_single_cell(positions,hd,spike_train,unit_id,ch_id,continuous, options)
+function plot_single_cell(positions,hd,spike_train,unit_id,ch_id,continuous,options)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -44,7 +44,7 @@ for k3=1:length(unit_id)
 
     % plot amplitude
     subplot(4,8,[17 18])
-    scatter(spike_t,amplitude,3,'filled')
+    scatter(spike_t,amplitude,3,'filled','k')
     ax4 = gca;
     ax4.Box = 'off';
     ax4.Color="none";
@@ -146,7 +146,7 @@ for k3=1:length(unit_id)
 
     % plot theta index
     subplot(4,8,[3 4])
-    calc.ISI(activity_s,1)
+    interspikeI(activity_s,1)
     [counts,centers,thetaInd] = auto_crg(activity_s','numbins',101,'range',500);
     ax1 = gca;
     ax1.Box = 'off';
@@ -155,7 +155,7 @@ for k3=1:length(unit_id)
     subplot(4,8,[11 12]);
     b = bar(centers,counts);
     b.EdgeColor='None';
-    b.FaceColor=1/255*[127 0 255]';
+    b.FaceColor='black';
     b.BarWidth=0.9;
     title(['theta index' ' ' num2str(thetaInd)])
 
@@ -172,7 +172,7 @@ for k3=1:length(unit_id)
     [counts1,centers1,thetaInd1] = auto_crg(activity_s','numbins',81,'range',40);
     b1 = bar(centers1,counts1);
     b1.EdgeColor='None';
-    b1.FaceColor=1/255*[127 0 255]';
+    b1.FaceColor='black';
     b1.BarWidth=1;
 
     subplot(4,8,[27 28])
@@ -204,7 +204,6 @@ for k3=1:length(unit_id)
 %     pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[0 30]);
 %     % plot(hz,Power)
 %     % xlim([0 20])
-
 end
 
 end
