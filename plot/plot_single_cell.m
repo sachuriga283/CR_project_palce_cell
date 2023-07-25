@@ -6,7 +6,9 @@ arguments
     positions double
     hd double
     spike_train cell
+    unit_id double
     ch_id double
+    continuous struct
 
     options.Nbins (1,1)  {mustBeNumeric} = 100
     options.hdBinWidth (1,1)  {mustBeNumeric} = 10
@@ -17,12 +19,16 @@ arguments
     options.day_num (1,1)  string = '2023-07-01'
 end
 
-nbin = options.binWidth;
+path = [options.save_path '\' options.animalID '\' options.day_num '\' 'single_unit']
+mk_path=fullfile(join(path))
+export_path=strrep(mk_path,' ','')
+mkdir(export_path)
+
+nbin = options.Nbins;
 cx_n=positions(:,2);
 cy_n=positions(:,3);
 time_speed = positions(:,1);
 [pos,ind] = pos_filtered_with_speed(positions);
-
 velocity = general.speed(positions);
 unit_id=spike_train{5,1};
 
@@ -179,7 +185,7 @@ for k3=1:length(unit_id)
     %LFP spectral
     clear lfp
     ch_i = ch_id(k3);
-    pre_lfp=continuous.samples(ch_i,:);
+    pre_lfp=continuous.samples(ch_i+1,:);
     temp_lfp=double(pre_lfp)*0.1949999928474426;
 
     temp_time = continuous.timestamps;
@@ -189,7 +195,13 @@ for k3=1:length(unit_id)
     lfp(:,2) = decimate(temp_lfp,decimate_rate);
     [logTransformed,spectrogram,t,f] = MTSpectrogram(lfp,'show','on','range',[0 60],'cutoffs',[0 8],'tapers',[3 5],'window',20);
     colorbar
-% 
+
+    clear image_name
+    image_name=[export_path '\' 'unit_id_' num2str(unit_id(k3)) '.jpg']
+    image_path=fullfile(join(image_name))
+    image_export_path=strrep(image_path,' ','')
+
+    saveas(gca,image_export_path); 
 %     h = heatmap(logTransformed)
 %     h.GridVisible='off'
 %     colormap jet
