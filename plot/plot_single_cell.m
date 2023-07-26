@@ -19,16 +19,16 @@ arguments
     options.day_num (1,1)  string = '2023-07-01'
 end
 
-path = [options.save_path '\' options.animalID '\' options.day_num '\' 'single_unit']
-mk_path=fullfile(join(path))
-export_path=strrep(mk_path,' ','')
+path = [options.save_path '\' options.animalID '\' options.day_num '\' 'single_unit'];
+mk_path=fullfile(join(path));
+export_path=strrep(mk_path,' ','');
 mkdir(export_path)
 
 nbin = options.Nbins;
 cx_n=positions(:,2);
 cy_n=positions(:,3);
 time_speed = positions(:,1);
-[pos,ind] = pos_filtered_with_speed(positions);
+[~,ind] = pos_filtered_with_speed(positions);
 velocity = general.speed(positions);
 unit_id=spike_train{5,1};
 
@@ -175,7 +175,7 @@ for k3=1:length(unit_id)
     p.LineWidth=2;
 
     subplot(4,8,[19 20]);
-    [counts1,centers1,thetaInd1] = auto_crg(activity_s','numbins',81,'range',40);
+    [counts1,centers1,~] = auto_crg(activity_s','numbins',81,'range',40);
     b1 = bar(centers1,counts1);
     b1.EdgeColor='None';
     b1.FaceColor='black';
@@ -193,13 +193,13 @@ for k3=1:length(unit_id)
     clear lfp
     lfp(:,1) =  decimate(temp_time,decimate_rate);
     lfp(:,2) = decimate(temp_lfp,decimate_rate);
-    [logTransformed,spectrogram,t,f] = MTSpectrogram(lfp,'show','on','range',[0 60],'cutoffs',[0 8],'tapers',[3 5],'window',20);
+    [~,~,~,~] = MTSpectrogram(lfp,'show','on','range',[0 60],'cutoffs',[0 8],'tapers',[3 5],'window',20);
     colorbar
 
     clear image_name
-    image_name=[export_path '\' 'unit_id_' num2str(unit_id(k3)) '.jpg']
-    image_path=fullfile(join(image_name))
-    image_export_path=strrep(image_path,' ','')
+    image_name=[export_path '\' 'unit_id_' num2str(unit_id(k3)) '.jpg'];
+    image_path=fullfile(join(image_name));
+    image_export_path=strrep(image_path,' ','');
 
     saveas(gca,image_export_path); 
 %     h = heatmap(logTransformed)

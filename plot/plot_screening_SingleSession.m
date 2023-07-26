@@ -43,7 +43,7 @@ position(:,1)=time_frame;
 position(:,2)=cx_n;
 position(:,3)=cy_n;
 
-[pos,~] = pos_filtered_with_speed(position);
+[~,~] = pos_filtered_with_speed(position);
 
 for k3=1:1:n
 

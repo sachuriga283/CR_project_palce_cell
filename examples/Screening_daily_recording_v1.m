@@ -2,7 +2,7 @@ clear all
 close all
 
 animalID='65165';
-day_num = '2023-07-25';
+day_num = '2023-06-18';
 session_num = 'A';
 folder_recording = 'Q:\sachuriga\OpenEphys';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
