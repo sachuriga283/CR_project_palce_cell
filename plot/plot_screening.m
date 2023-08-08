@@ -13,6 +13,7 @@ arguments
     options.save_path (1,1)  string = 'Q:\sachuriga\Record_archive\Record_examples'
     options.animalID (1,1)  string = '65165'
     options.day_num (1,1)  string = '2023-07-01'
+    options.session (1,1)  string = 'A'
 end
 
 if isstruct(positions)==1
@@ -42,7 +43,8 @@ else
         'save_plot',options.save_plot,...
         'save_path',options.save_path,...
         'animalID',options.animalID,...
-        'day_num',options.day_num)
+        'day_num',options.day_num, ...
+        'session',options.session)
 end
 
 end

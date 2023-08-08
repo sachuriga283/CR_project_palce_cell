@@ -17,9 +17,10 @@ arguments
     options.save_path (1,1)  string = 'Q:\sachuriga\Record_archive\Record_examples'
     options.animalID (1,1)  string = '65165'
     options.day_num (1,1)  string = '2023-07-01'
+    options.session (1,1)  string = 'A'
 end
 
-path = [options.save_path '\' options.animalID '\' options.day_num '\' 'single_unit'];
+path = [options.save_path '\' options.animalID '\' options.day_num '\' options.session '\' 'single_unit'];
 mk_path=fullfile(join(path));
 export_path=strrep(mk_path,' ','');
 mkdir(export_path)
@@ -31,10 +32,12 @@ time_speed = positions(:,1);
 [~,ind] = pos_filtered_with_speed(positions);
 velocity = general.speed(positions);
 unit_id=spike_train{5,1};
+[pos,ind] = pos_filtered_with_speed(positions)
+
 
 for k3=1:length(unit_id)
 
-    gaf=figure(k3);
+    gaf=figure(k3+4);
     scrsz=get(0,'ScreenSize');
     set(gaf,'Position',scrsz);
     clear acitivity
@@ -80,7 +83,7 @@ for k3=1:length(unit_id)
     plot.colorMap(map.z,map.time,'bar','off')
     hold on
     [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);
-    plot.fields(fields)
+    %     plot.fields(fields)
 
     ax2 = gca; % 获取当前图形的坐标轴对象
     ax2.YDir = 'reverse'; % 设置Y轴反向
@@ -89,6 +92,7 @@ for k3=1:length(unit_id)
     xticklabels({'0' '1'})
     yticklabels({'0' '1'})
     axis square
+    colormap jet
     c1 = colorbar;
     c1.Location = 'south';
     c1.Position = [0.73675595238095,0.518930826487577,0.072098214285716,0.024163669877945];
@@ -152,11 +156,19 @@ for k3=1:length(unit_id)
 
     % plot theta index
     subplot(4,8,[3 4])
-    interspikeI(activity_s,1)
-    [counts,centers,thetaInd] = auto_crg(activity_s','numbins',101,'range',500);
-    ax1 = gca;
-    ax1.Box = 'off';
-    ax1.Color="none";
+
+    if length(activity_s) > 100
+        interspikeI(activity_s,1)
+        [counts,centers,thetaInd] = auto_crg(activity_s','numbins',101,'range',500);
+        ax1 = gca;
+        ax1.Box = 'off';
+        ax1.Color="none";
+
+    else
+        disp("no spike")
+        plot(1)
+
+    end
 
     subplot(4,8,[11 12]);
     b = bar(centers,counts);
@@ -175,11 +187,16 @@ for k3=1:length(unit_id)
     p.LineWidth=2;
 
     subplot(4,8,[19 20]);
-    [counts1,centers1,~] = auto_crg(activity_s','numbins',81,'range',40);
-    b1 = bar(centers1,counts1);
-    b1.EdgeColor='None';
-    b1.FaceColor='black';
-    b1.BarWidth=1;
+    if length(activity_s) > 100
+        [counts1,centers1,~] = auto_crg(activity_s','numbins',81,'range',40);
+        b1 = bar(centers1,counts1);
+        b1.EdgeColor='None';
+        b1.FaceColor='black';
+        b1.BarWidth=1;
+    else
+        disp('spikes smaller than 100')
+        plot(1)
+    end
 
     subplot(4,8,[27 28])
     %LFP spectral
@@ -201,21 +218,21 @@ for k3=1:length(unit_id)
     image_path=fullfile(join(image_name));
     image_export_path=strrep(image_path,' ','');
 
-    saveas(gca,image_export_path); 
-%     h = heatmap(logTransformed)
-%     h.GridVisible='off'
-%     colormap jet
+    saveas(gca,image_export_path);
+    %     h = heatmap(logTransformed)
+    %     h.GridVisible='off'
+    %     colormap jet
 
-%     bands = SpectrogramBands(spectrogram,f); 
-%     csd = CSD(f_lfp);
-%     PlotCSD(csd,'lfp')
-% 
-%     plot(t,bands.delta)
-% 
-%     plot(lfp(:,1),double(continuous.samples(ch_i,:)));
-%     pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[0 30]);
-%     % plot(hz,Power)
-%     % xlim([0 20])
+    %     bands = SpectrogramBands(spectrogram,f);
+    %     csd = CSD(f_lfp);
+    %     PlotCSD(csd,'lfp')
+    %
+    %     plot(t,bands.delta)
+    %
+    %     plot(lfp(:,1),double(continuous.samples(ch_i,:)));
+    %     pspectrum(double(continuous.samples(ch_i,:)),lfp(:,1),'FrequencyLimits',[0 30]);
+    %     % plot(hz,Power)
+    %     % xlim([0 20])
 end
 
 end

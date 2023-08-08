@@ -38,7 +38,7 @@ spike.spike_amplitude  = double(readNPY([spikes_amplitude(1).folder '/' spikes_a
 
 % Load dlc tracking file
 cd(video_folder)
-v_name = dir([animalID '_' '*' day_num '*.csv']);
+v_name = dir([animalID '*' session_num '*' day_num '*.csv']);
 dlc_m = readmatrix(v_name(1).name);
 
 end

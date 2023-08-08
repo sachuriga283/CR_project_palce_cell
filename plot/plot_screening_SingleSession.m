@@ -20,6 +20,7 @@ arguments
     options.save_path (1,1)  string = 'Q:\sachuriga\Record_archive\Record_examples'
     options.animalID (1,1)  string = '65165'
     options.day_num (1,1)  string = '2023-07-01'
+    options.session (1,1)  string = 'A'
 end
 
 s1=options.PlotSize(1);
@@ -43,7 +44,7 @@ position(:,1)=time_frame;
 position(:,2)=cx_n;
 position(:,3)=cy_n;
 
-[~,~] = pos_filtered_with_speed(position);
+[pos,~] = pos_filtered_with_speed(position);
 
 for k3=1:1:n
 
@@ -95,7 +96,7 @@ for k3=1:1:n
     activity_s=spike_train{1,k3};
 
     %     map = FiringMap([time_frame cx_n cy_n],[activity_s'],'smooth',options.smooth,'nBins',[nbin nbin]);
-    map = analyses.map(positions,activity_s','smooth',options.smooth,'binWidth',nbin);
+    map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin,'blanks','off','minTime',0.25);
     plot.colorMap(map.z,map.time,'bar','on')
 
     [fieldsMap, fields] = analyses.placefield(map,'minPeak',0.1);
@@ -155,6 +156,8 @@ if options.save_plot=='True'
     cd(options.animalID)
     mkdir(options.day_num)
     cd(options.day_num)
+    mkdir(options.session)
+    cd(options.session)
     figure(f_raw)
     f1=gcf;
     %     exportgraphics(f1,'f_raw.png','Resolution',300)
