@@ -32,10 +32,10 @@ for i=1:length(unit_id)
     waveform{i}=waveform_shank;
 
     for j=1:lenth(ch_in_shanks)
-    
-    
     end
-
+    
 
 end
+
+
 end

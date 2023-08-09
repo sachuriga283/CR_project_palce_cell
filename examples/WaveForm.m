@@ -37,7 +37,7 @@ for i=1:length(unit_id)
 gwfparams.spikeTimes = spike_time(find(spike_cluster==unit_id(i))); % Vector of cluster spike times (in samples) same length as .spikeClusters
 gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of cluster IDs (Phy nomenclature)   same length as .spikeTimes
 temp=getWaveForms(gwfparams)
-wf{1} = temp
+wf{i} = temp
 end
 
 figure; 
