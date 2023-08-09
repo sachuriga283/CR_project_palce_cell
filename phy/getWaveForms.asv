@@ -51,8 +51,8 @@ for curUnitInd=1:numUnits
     spikeTimesRP = curSpikeTimes(randperm(curUnitnSpikes));
     spikeTimeKeeps(curUnitInd,1:min([gwfparams.nWf curUnitnSpikes])) = sort(spikeTimesRP(1:min([gwfparams.nWf curUnitnSpikes])));
     for curSpikeTime = 1:min([gwfparams.nWf curUnitnSpikes])
-        temp1=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1);
-        temp2=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end);
+        temp1=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1));
+        temp2=double(spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end));
         tmpWf = mmf.Data.x(1:gwfparams.nCh,spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1):spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end));
         waveForms(curUnitInd,curSpikeTime,:,:) = tmpWf(chMap,:);
     end
