@@ -20,15 +20,15 @@ session_num = options.session;
 
 time_window=82;
 
-spikes_channel_groups = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_groups.npy'])),' ',''));
-spikes_channel_positions = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_positions.npy'])),' ',''));
-spikes_channel_map = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_map.npy'])),' ',''));
-spikes_cluster_group = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/cluster_info.tsv'])),' ',''));
+spikes_channel_groups = dir(strrep(fullfile(join([folder_recording '/' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_groups.npy'])),' ',''));
+spikes_channel_positions = dir(strrep(fullfile(join([folder_recording '/' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_positions.npy'])),' ',''));
+spikes_channel_map = dir(strrep(fullfile(join([folder_recording '/' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_map.npy'])),' ',''));
+spikes_cluster_group = dir(strrep(fullfile(join([folder_recording '/' animalID '_' day_num '*' session_num '*' 'phy' '*' '/cluster_info.tsv'])),' ',''));
 
-spikes_channel_groups = readNPY([spikes_channel_groups(1).folder '\' spikes_channel_groups(1).name]);
-spikes_channel_positions = readNPY([spikes_channel_positions(1).folder '\' spikes_channel_positions(1).name]);
-spikes_channel_map = readNPY([spikes_channel_map(1).folder '\' spikes_channel_map(1).name]);
-spikes_cluster_info = tdfread([spikes_cluster_group(1).folder '\' spikes_cluster_group(1).name]);
+spikes_channel_groups = readNPY([spikes_channel_groups(1).folder '/' spikes_channel_groups(1).name]);
+spikes_channel_positions = readNPY([spikes_channel_positions(1).folder '/' spikes_channel_positions(1).name]);
+spikes_channel_map = readNPY([spikes_channel_map(1).folder '/' spikes_channel_map(1).name]);
+spikes_cluster_info = tdfread([spikes_cluster_group(1).folder '/' spikes_cluster_group(1).name]);
 
 waveform=cell(length(unit_id),1);
 ch=nan(length(unit_id));
@@ -102,12 +102,12 @@ for i=1:length(unit_id)
 
 end
 
-path = [options.save_path '\' options.animalID '\' options.day_num '\' options.session '\' 'wave_form'];
+path = [options.save_path '/' options.animalID '/' options.day_num '/' options.session '/' 'wave_form'];
 mk_path=fullfile(join(path));
 export_path=strrep(mk_path,' ','');
 mkdir(export_path)
 
-image_name=[export_path '\' 'waveform' '.mat'];
+image_name=[export_path '/' 'waveform' '.mat'];
 image_path=fullfile(join(image_name));
 image_export_path=strrep(image_path,' ','');
 save(image_export_path,"waveform");

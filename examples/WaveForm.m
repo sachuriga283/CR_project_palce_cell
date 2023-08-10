@@ -3,7 +3,7 @@ close all
 
 animalID = '65091';
 day_num = '2023-08-08';
-session_num = 'C';
+session_num = 'B';
 folder_recording = 'Q:\sachuriga\OpenEphys';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
 save_plot='True';
