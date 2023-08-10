@@ -34,11 +34,18 @@ gwfparams.wfWin = [-40 41];              % Number of samples before and after sp
 gwfparams.nWf = 2000;                    % Number of waveforms per unit to pull out
 
 for i=1:length(unit_id)
+
 gwfparams.spikeTimes = spike_time(find(spike_cluster==unit_id(i))); % Vector of cluster spike times (in samples) same length as .spikeClusters
 gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of cluster IDs (Phy nomenclature)   same length as .spikeTimes
 temp=getWaveForms(gwfparams)
 wf{i} = temp
+
 end
+
+%Extract the waveform from raw data
+[waveform] = load_wave_form_si(wf,unit_id)
+
+
 
 figure; 
 imagesc(squeeze(wf.waveFormsMean))

@@ -1,20 +1,20 @@
-function varargout = ploterr(X, Y, varargin)
+function varargout = plotSEM(X, Y, varargin)
 % Plot data with shaded error bounds.  Removes NaN values.
 %
 % USAGE
-%   H = ploterr(X, Y, 'ArgName', ArgValue);
+%   H = plotSEM(X, Y, 'ArgName', ArgValue);
 % 
 %     OR
 %
-%   H = ploterr(X, Y, E, 'ArgName', ArgValue);
+%   H = plotSEM(X, Y, E, 'ArgName', ArgValue);
 %
 %     OR
 %
-%   H = ploterr(X, Y, Epos, Eneg, 'ArgName', ArgValue);
+%   H = plotSEM(X, Y, Epos, Eneg, 'ArgName', ArgValue);
 %
 %     OR
 %
-%   [H, M, Epos, Eneg] = ploterr(___);
+%   [H, M, Epos, Eneg] = plotSEM(___);
 %
 % INPUTS
 %   X - X values of samples in Y (Ntimepoints-length vector).  If Group 
@@ -50,7 +50,7 @@ function varargout = ploterr(X, Y, varargin)
 %
 % OUTPUT
 %   H - handle to the mean line
-%   M - mean values
+%   M - mean values 
 %   E - error which was plotted
 %   Epos - positive error which was plotted
 %   Eneg - negative error which was plotted
@@ -61,55 +61,55 @@ function varargout = ploterr(X, Y, varargin)
 %     x = linspace(0, 1, 10);
 %     y = 2*x+0.2*randn(size(x));
 %     e = 0.3+0.3*rand(size(x));
-%     ploterr(x, y, e)
+%     ploSEM(x, y, e)
 %
 %   Plot a line with separate positive and negative error:
 %     Epos = 0.3+0.3*rand(size(x));
 %     Eneg = 0.6+0.3*rand(size(x));
-%     ploterr(x, y, Epos, Eneg)
+%     plotSEM(x, y, Epos, Eneg)
 %
 %   Plot grouped data mean and SEM:
 %     x = ceil(3*rand(20,1)); %grouping variable
 %     y = randn(size(x));
 %     y(x==1) = y(x==1) + 1;
 %     y(x==2) = y(x==2) - 1;
-%     ploterr(x, y, 'Group', true, 'Labels', {'A', 'B', 'C'})
+%     plotSEM(x, y, 'Group', true, 'Labels', {'A', 'B', 'C'})
 %
 %   Plot continuous-time data mean and SEM:
 %     Nt = 10; %number of timepoints
 %     Ns = 5;  %number of samples/trials
 %     x = linspace(0, 1, Nt); %timepoints
 %     y = 2*repmat(x, Ns, 1)+0.5*randn(Ns,Nt); %Nsamples-by-Ntimepoints
-%     ploterr(x, y)
+%     plotSEM(x, y)
 %
 %   Show individual points
-%     ploterr(x, y, 'ShowPoints', true)
+%     plotSEM(x, y, 'ShowPoints', true)
 %
 %   Plot standard deviation instead of SEM
-%     ploterr(x, y, 'Error', 'std')
+%     plotSEM(x, y, 'Error', 'std')
 %
 %   Plot median and 68% interval (1 sigma of true distribution)
-%     ploterr(x, y, 'Error', 'prc')
+%     plotSEM(x, y, 'Error', 'prc')
 %
 %   Plot median and 95% interval
-%     ploterr(x, y, 'Error', 'prc', 'PercTile', 95)
+%     plotSEM(x, y, 'Error', 'prc', 'PercTile', 95)
 %
 %   Adjust transparency of shaded area, line width, colors, and linespec
-%     ploterr(x, y, ...
+%     plotSEM(x, y, ...
 %       'Color', 'orange', 'LineWidth', 5, 'LineSpec', '--', ...
 %       'Alpha', 0.5, 'ShowPoints', true, 'PointColor', 'pink', ...
 %       'MarkerSize', 20)
 %
 %   Plot two lines with a legend.
-%     h1 = ploterr(x, y);
-%     h2 = ploterr(x, -y, 'Color', 'orange');
+%     h1 = plotSEM(x, y);
+%     h2 = plotSEM(x, -y, 'Color', 'orange');
 %     legend([h1 h2], {'Line 1', 'Line 2'})
 %
 %   Plot several lines, auto-generating new colors for each:
 %     x = linspace(0, 1, 10);
 %     for iL = 1:5
 %       y = iL+randn(length(x));
-%       ploterr(x, y, 'Color', iL)
+%       plotSEM(x, y, 'Color', iL)
 %     end
 %       
 

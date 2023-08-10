@@ -41,30 +41,47 @@ for i=1:length(unit_id)
     temp_raw = temp_wf1_raw(:,ch_in_shanks,:);
     waveform_shank.positions = ch_positions_inshank;
     waveform{i}=waveform_shank;
-    
+
     clear temp_xcor
+
     temp_waveform_sem = nan(length(ch_in_shanks),time_window);
+
+    figure;
 
     for j=1:length(ch_in_shanks)
 
         temp_xcor (j,:) = ch_positions_inshank(j,1)-8.25 : 16.5/81 : ch_positions_inshank(j,1)+8.25;
         %transform to Micro-scale
         waveform_shank.mean(j,:) = temp_wf1_mean(ch_in_shanks(j),:)*0.195 + ch_positions_inshank(j,2);
-        temp_raw (:,j,:) = temp_raw (:,j,:).*0.195 + ch_positions_inshank(j,2);
+        temp_raw11 (:,j,:) = temp_raw (:,j,:).*0.195 + ch_positions_inshank(j,2);
         %               plot(temp_xcor (j,:),waveform_shank.mean(j,:))
 
         % for calculating the sem
 
-        temp_raw1 = squeeze(temp_raw (:,j,:));
+        temp_raw1 = squeeze(temp_raw11 (1:nonNanCount,j,:));
         temp_sem=nan(1,time_window);
+
+        for k1=1:nonNanCount
+            hold on
+            plot(temp_xcor (j,:),temp_raw1(k1,:),'k-')
+
+        end
 
         for k=1 : length(temp_xcor)
 
-            temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k))/sqrt(min([nonNanCount length(temp_wf.spikeTimeKeeps)]));
+            %             temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k))/sqrt(min([nonNanCount length(temp_wf.spikeTimeKeeps)]));
+            temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k));
 
         end
 
         temp_waveform_sem (j,:) = temp_sem;
+        plot(temp_xcor (j,:),waveform_shank.mean(j,:), ...
+            'w-', ...
+            'LineWidth',2)
+
+%         f1(j)
+%         hold on
+%         H = plotSEM(temp_xcor (j,:), waveform_shank.mean(j,:), temp_sem*2, temp_sem*2);
 
     end
 
