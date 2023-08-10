@@ -1,7 +1,7 @@
 clear all
 close all
 
-animalID='65091';
+animalID = '65091';
 day_num = '2023-08-08';
 session_num = 'C';
 folder_recording = 'Q:\sachuriga\OpenEphys';
@@ -19,7 +19,6 @@ spikes_id = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' '
 spike_time = ceil((readNPY([spikes_t(1).folder '/' spikes_t(1).name])));
 spike_cluster= int64(readNPY([spikes_id(1).folder '/' spikes_id(1).name]));
 
-
 clear gwfparams
 
 gwfparams.dataDir = spikes_t(1).folder;    % KiloSort/Phy output folder
@@ -32,8 +31,8 @@ gwfparams.nWf = 2000;                    % Number of waveforms per unit to pull 
 for i=1:length(unit_id)
 gwfparams.spikeTimes = spike_time(find(spike_cluster==unit_id(i))); % Vector of cluster spike times (in samples) same length as .spikeClusters
 gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of cluster IDs (Phy nomenclature)   same length as .spikeTimes
-temp=getWaveForms(gwfparams)
-wf{i} = temp
+temp=getWaveForms(gwfparams);
+wf{i} = temp;
 end
 
 %Extract the waveform from raw data
@@ -48,6 +47,5 @@ figure;
 imagesc(squeeze(wf.waveFormsMean))
 set(gca, 'YDir', 'normal'); xlabel('time (samples)'); ylabel('channel number'); 
 colormap(colormap_BlueWhiteRed); caxis([-1 1]*max(abs(caxis()))/2); box off;
-
 
 squeeze(wf.waveFormsMean)

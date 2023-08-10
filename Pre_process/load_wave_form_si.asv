@@ -106,7 +106,7 @@ mk_path=fullfile(join(path));
 export_path=strrep(mk_path,' ','');
 mkdir(export_path)
 
-image_name=[export_path '\' 'unit_id_' '.mat'];
+image_name=[export_path '\' 'waveform' '.mat'];
 image_path=fullfile(join(image_name));
 image_export_path=strrep(image_path,' ','');
 save(waveform,image_export_path);
