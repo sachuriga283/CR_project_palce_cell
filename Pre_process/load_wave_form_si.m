@@ -1,13 +1,29 @@
-function [waveform] = load_wave_form_si(wf,unit_id)
+function [waveform] = load_wave_form_si(wf,unit_id,options)
+
+arguments
+    wf
+    unit_id
+    options.folder_recording (1,1)  string = 'Q:\sachuriga\OpenEphys'
+    options.save_path (1,1)  string = 'Q:\sachuriga\Record_archive\Record_examples'
+    options.animalID (1,1)  string = '65165'
+    options.day_num (1,1)  string = '2023-07-01'
+    options.session (1,1)  string = 'A'
+end
+
+
+folder_recording = options.folder_recording
+animalID = options.animalID
+day_num = options.day_num
+session_num = options.session
 
 % befor and after 0.4 ms
 
 time_window=82;
 
-spikes_channel_groups = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_groups.npy']);
-spikes_channel_positions = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_positions.npy']);
-spikes_channel_map = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_map.npy']);
-spikes_cluster_group = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/cluster_info.tsv']);
+spikes_channel_groups = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_groups.npy'])),' ',''));
+spikes_channel_positions = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_positions.npy'])),' ',''));
+spikes_channel_map = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/channel_map.npy'])),' ',''));
+spikes_cluster_group = dir(strrep(fullfile(join([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/cluster_info.tsv'])),' ',''));
 
 spikes_channel_groups = readNPY([spikes_channel_groups(1).folder '/' spikes_channel_groups(1).name]);
 spikes_channel_positions = readNPY([spikes_channel_positions(1).folder '/' spikes_channel_positions(1).name]);
@@ -79,9 +95,9 @@ for i=1:length(unit_id)
             'w-', ...
             'LineWidth',2)
 
-%         f1(j)
-%         hold on
-%         H = plotSEM(temp_xcor (j,:), waveform_shank.mean(j,:), temp_sem*2, temp_sem*2);
+        %         f1(j)
+        %         hold on
+        %         H = plotSEM(temp_xcor (j,:), waveform_shank.mean(j,:), temp_sem*2, temp_sem*2);
 
     end
 
