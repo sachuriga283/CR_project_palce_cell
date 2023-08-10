@@ -77,7 +77,7 @@ for i=1:length(unit_id)
         temp_raw1 = squeeze(temp_raw11 (1:nonNanCount,j,:));
         temp_sem=nan(1,time_window);
 
-        for k1=1:nonNanCount
+        parfor k1=1:nonNanCount
             hold on
             plot(temp_xcor (j,:),temp_raw1(k1,:),'k-')
 

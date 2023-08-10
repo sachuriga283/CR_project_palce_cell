@@ -15,14 +15,10 @@ dataDir = dir([animalID '_' day_num '*' session_num '*' 'phy' '*']);
 % EXAMPLE INPUT
 spikes_t = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy']);
 spikes_id = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy']);
-% samplenum = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' '\Record Node 102\experiment1\recording1\continuous\OE_FPGA_Acquisition_Board-101.Rhythm Data' '*' '/sample_numbers.npy']);
-% sampletime= dir([folder_recording '\' animalID '_' day_num '*' session_num '*' '\Record Node 102\experiment1\recording1\continuous\OE_FPGA_Acquisition_Board-101.Rhythm Data' '*' '/timestamps.npy']);
 
 spike_time = ceil((readNPY([spikes_t(1).folder '/' spikes_t(1).name])));
 spike_cluster= int64(readNPY([spikes_id(1).folder '/' spikes_id(1).name]));
 
-% sample_num = readNPY([samplenum(1).folder '/' samplenum(1).name]);
-% sample_time = readNPY([sampletime(1).folder '/' sampletime(1).name])*30000;
 
 clear gwfparams
 
