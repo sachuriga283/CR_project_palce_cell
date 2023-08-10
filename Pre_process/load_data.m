@@ -12,13 +12,13 @@ folder_recording=folder_recording;
 video_folder=video_folder;
 
 cd(folder_recording)
-TTL_name = dir([animalID '_' day_num '*' session_num '/**/TTL/timestamps.npy']);
+TTL_name = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '/**/TTL/timestamps.npy'])),' ',''));
 
 cd(TTL_name(1).folder)
 time_s = readNPY (TTL_name(1).name);
 
 cd(folder_recording)
-TTL_state = dir([animalID '_' day_num '*' session_num '/**/TTL/states.npy']);
+TTL_state = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '/**/TTL/states.npy'])),' ',''));
 cd(TTL_state(1).folder)
 states_s = readNPY (TTL_state(1).name);
 
@@ -26,9 +26,9 @@ states_s = readNPY (TTL_state(1).name);
 time_f_t = time_s(states_s==-6);
 
 cd(folder_recording)
-spikes_t = dir([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy']);
-spikes_id = dir([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy']);
-spikes_amplitude = dir([animalID '_' day_num '*' session_num '*' 'phy' '*' '/amplitudes.npy']);
+spikes_t = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy'])),' ',''));
+spikes_id = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy'])),' ',''));
+spikes_amplitude = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/amplitudes.npy'])),' ',''));
 
 
 spike.spikes_t = double(readNPY([spikes_t(1).folder '/' spikes_t(1).name]))/30000;
@@ -38,7 +38,7 @@ spike.spike_amplitude  = double(readNPY([spikes_amplitude(1).folder '/' spikes_a
 
 % Load dlc tracking file
 cd(video_folder)
-v_name = dir([animalID '*' session_num '*' day_num '*.csv']);
+v_name = dir(strrep(fullfile(join([animalID '*' session_num '*' day_num '*.csv'])),' ',''));
 dlc_m = readmatrix(v_name(1).name);
 
 end

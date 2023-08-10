@@ -3,7 +3,7 @@ close all
 
 animalID = '65091';
 day_num = '2023-08-08';
-session_num = 'B';
+session_num = 'A';
 folder_recording = 'Q:\sachuriga\OpenEphys';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
 save_plot='True';
@@ -13,8 +13,8 @@ save_path='Q:\sachuriga\Record_archive\Record_examples';
 dataDir = dir([animalID '_' day_num '*' session_num '*' 'phy' '*']);
 
 % EXAMPLE INPUT
-spikes_t = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy']);
-spikes_id = dir([folder_recording '\' animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy']);
+spikes_t =dir(strrep(fullfile(join([folder_recording '/' animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy'])),' ',''));
+spikes_id = dir(strrep(fullfile(join([folder_recording '/' animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy'])),' ',''));
 
 spike_time = ceil((readNPY([spikes_t(1).folder '/' spikes_t(1).name])));
 spike_cluster= int64(readNPY([spikes_id(1).folder '/' spikes_id(1).name]));
