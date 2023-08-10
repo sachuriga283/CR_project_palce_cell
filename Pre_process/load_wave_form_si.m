@@ -61,8 +61,8 @@ for i=1:length(unit_id)
     clear temp_xcor
 
     temp_waveform_sem = nan(length(ch_in_shanks),time_window);
-
-        figure;
+% 
+%         figure;
 
     for j=1:length(ch_in_shanks)
 
@@ -75,10 +75,10 @@ for i=1:length(unit_id)
         % for calculating the sem
         temp_raw1 = squeeze(temp_raw11 (1:nonNanCount,j,:));
         temp_sem=nan(1,time_window);
-        for k1=1:nonNanCount
-            hold on
-            plot(temp_xcor (j,:),temp_raw1(k1,:),'k-')
-        end
+%         for k1=1:nonNanCount
+%             hold on
+%             plot(temp_xcor (j,:),temp_raw1(k1,:),'k-')
+%         end
 
         for k=1:length(temp_xcor)
             % temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k))/sqrt(min([nonNanCount length(temp_wf.spikeTimeKeeps)]));
@@ -86,9 +86,9 @@ for i=1:length(unit_id)
         end
 
         temp_waveform_sem (j,:) = temp_sem;
-        plot(temp_xcor (j,:),waveform_shank.mean(j,:), ...
-            'w-', ...
-            'LineWidth',2)
+%         plot(temp_xcor (j,:),waveform_shank.mean(j,:), ...
+%             'w-', ...
+%             'LineWidth',2)
 %         f1(j)
 %         hold on
 %         H = plotSEM(temp_xcor (j,:), waveform_shank.mean(j,:), temp_sem*2, temp_sem*2);
@@ -97,6 +97,7 @@ for i=1:length(unit_id)
 
     waveform_shank.xcor = temp_xcor;
     waveform_shank.sem = temp_waveform_sem;
+    waveform_shank.raw = temp_raw11;
     waveform{i}=waveform_shank;
 
 end
@@ -106,9 +107,9 @@ mk_path=fullfile(join(path));
 export_path=strrep(mk_path,' ','');
 mkdir(export_path)
 
-image_name=[export_path '\' 'unit_id_' '.mat'];
+image_name=[export_path '\' 'waveform' '.mat'];
 image_path=fullfile(join(image_name));
 image_export_path=strrep(image_path,' ','');
-save(waveform,image_export_path);
+save(image_export_path,"waveform");
 
 end
