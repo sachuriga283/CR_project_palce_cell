@@ -11,10 +11,10 @@ arguments
 end
 
 
-folder_recording = options.folder_recording
-animalID = options.animalID
-day_num = options.day_num
-session_num = options.session
+folder_recording = options.folder_recording;
+animalID = options.animalID;
+day_num = options.day_num;
+session_num = options.session;
 
 % befor and after 0.4 ms
 
@@ -83,11 +83,9 @@ for i=1:length(unit_id)
 
         end
 
-        for k=1 : length(temp_xcor)
-
-            %             temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k))/sqrt(min([nonNanCount length(temp_wf.spikeTimeKeeps)]));
+        parfor k=1:length(temp_xcor)
+            % temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k))/sqrt(min([nonNanCount length(temp_wf.spikeTimeKeeps)]));
             temp_sem(k) = std(temp_raw1(1:min([nonNanCount length(temp_wf.spikeTimeKeeps)]),k));
-
         end
 
         temp_waveform_sem (j,:) = temp_sem;
