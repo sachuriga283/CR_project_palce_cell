@@ -76,6 +76,6 @@ end
 spike_name=[export_path '\' 'spike' '.mat'];
 spike_path=fullfile(join(spike_name));
 spike_export_path=strrep(spike_path,' ','');
-save(spike_export_path,"velocity");
+save(spike_export_path,"spike");
 
 end
