@@ -1,7 +1,7 @@
 function load_mat(Path)
 
 arguments
-Path (1,1)  string 'Q:\sachuriga\Record_archive\Record_examples\65165\2023-07-10\A\data/'
+Path 
 end
 
 File = dir(fullfile(Path,'*.mat'));

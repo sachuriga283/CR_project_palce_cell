@@ -1,9 +1,9 @@
 clear all
 close all
 
-animalID='65165';
-day_num = '2023-07-10';
-session_num = 'A';
+animalID='65091';
+day_num = '2023-07-30';
+session_num = 'C';
 folder_recording = 'Q:\sachuriga\OpenEphys';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
 save_plot='True';
@@ -33,7 +33,7 @@ save_path='Q:\sachuriga\Record_archive\Record_examples';
 
 % Calculate plot size
 [size_colum,size_raw] = plot_size(unit_id);
-
+% 
 % %% plot
 % % Screening place cells
 % plot_screening(positions, ...
@@ -48,7 +48,7 @@ save_path='Q:\sachuriga\Record_archive\Record_examples';
 %     'animalID',animalID,...
 %     'day_num',day_num, ...
 %     'session',session_num)
-
+% 
 % % plot single unit's activity
 % plot_single_cell(positions, ...
 %     hd, ...
