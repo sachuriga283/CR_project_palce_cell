@@ -29,10 +29,10 @@ nbin = options.Nbins;
 cx_n=positions(:,2);
 cy_n=positions(:,3);
 time_speed = positions(:,1);
-[~,ind] = pos_filtered_with_speed(positions);
+[~,~] = pos_filtered_with_speed(positions);
 velocity = general.speed(positions);
 unit_id=spike_train{5,1};
-[pos,ind] = pos_filtered_with_speed(positions)
+[~,~] = pos_filtered_with_speed(positions);
 
 position_name=[export_path '\' 'positions' '.mat'];
 position_path=fullfile(join(position_name));

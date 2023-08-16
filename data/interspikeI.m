@@ -14,7 +14,7 @@
 %
 % Written by BRK 2017 modified by Sachuriga
 
-function ref = interspikeI(spikes,PLOT,varargin)
+function [ref ar] = interspikeI(spikes,PLOT,varargin)
 
 %% check if we're plotting
 if ~exist('PLOT','var')
@@ -40,9 +40,8 @@ if PLOT
     ar.LineStyle = 'None';
     ar.FaceColor = 'Black';
     hold on
-    plot([0.001 0.001],get(gca,'yLim'),'k-', ...
+    p = plot([0.001 0.001],get(gca,'yLim'),'k-', ...
         [0.002 0.002],get(gca,'yLim'),'r-')
-    xlabel('ISI (sec)');
     set(gca,'XScale','log','XLim',[10^minLogISI 10^maxLogISI]);
 
     %     t = text(max(get(gca,'xLim')),max(get(gca,'yLim')), ...

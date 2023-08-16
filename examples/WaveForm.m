@@ -2,8 +2,8 @@ clear all
 close all
 
 animalID = '65091';
-day_num = '2023-08-08';
-session_num = 'A';
+day_num = '2023-07-30';
+session_num = 'C';
 folder_recording = 'Q:\sachuriga\OpenEphys';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
 save_plot='True';
@@ -29,9 +29,10 @@ gwfparams.wfWin = [-40 41];              % Number of samples before and after sp
 gwfparams.nWf = 2000;                    % Number of waveforms per unit to pull out
 
 for i=1:length(unit_id)
+% for i=60:66
 gwfparams.spikeTimes = spike_time(find(spike_cluster==unit_id(i))); % Vector of cluster spike times (in samples) same length as .spikeClusters
 gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of cluster IDs (Phy nomenclature)   same length as .spikeTimes
-temp=getWaveForms(gwfparams);
+temp = getWaveForms(gwfparams);
 wf{i} = temp;
 end
 
@@ -42,10 +43,3 @@ end
     'animalID',animalID, ...
     'day_num',day_num, ...
     'session',session_num)
-
-figure; 
-imagesc(squeeze(wf.waveFormsMean))
-set(gca, 'YDir', 'normal'); xlabel('time (samples)'); ylabel('channel number'); 
-colormap(colormap_BlueWhiteRed); caxis([-1 1]*max(abs(caxis()))/2); box off;
-
-squeeze(wf.waveFormsMean)

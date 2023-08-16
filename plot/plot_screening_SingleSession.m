@@ -64,6 +64,7 @@ for k3=1:1:n
     hold on
     plot(activity.x,activity.y,'r.', ...
         MarkerSize=1)
+
     title(['unit' ' ' num2str(unit_id(k3))])
     ax = gca; % 获取当前图形的坐标轴对象
     ax.YDir = 'reverse'; % 设置Y轴反向
@@ -118,6 +119,11 @@ for k3=1:1:n
     figure(f_hdp)
     subplot(s1,s2,k3)
     plot.circularTurning(temp_s)
+
+
+ polarhistogram(deg2rad(hdd),72)
+
+
     axis square
     ax = gca; % 获取当前图形的坐标轴对象
     ax.YDir = 'reverse'; % 设置Y轴反向

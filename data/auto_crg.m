@@ -67,8 +67,8 @@ withinRange = triMatSqueeze(triMatSqueeze >= -range & triMatSqueeze <= range & t
 %% histogram
 [counts centers] = hist(withinRange,numBins);
 % set zero-lag to max
-zeroLag = round(numBins/2);
-counts(zeroLag) = nanmax(counts([1:zeroLag-1,zeroLag+1:end]));
+% zeroLag = round(numBins/2);
+% counts(zeroLag) = nanmax(counts([1:zeroLag-1,zeroLag+1:end]));
 
 %% FFT
 rsrate = 500;
