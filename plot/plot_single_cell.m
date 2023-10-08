@@ -163,6 +163,21 @@ for k3=1:length(unit_id)
         ax1 = gca;
         ax1.Box = 'off';
         ax1.Color="none";
+        subplot(4,8,[11 12]);
+        b = bar(centers,counts);
+        b.EdgeColor='None';
+        b.FaceColor='black';
+        b.BarWidth=0.9;
+        title(['theta index' ' ' num2str(thetaInd)])
+    
+        ax2 = gca;
+        ax2.Box = 'off';
+        ax2.Color="none";
+        hold on
+        smoothed = general.smoothGauss(counts,0.5);
+        p = plot(centers,smoothed);
+        p.Color='red';
+        p.LineWidth=2;
 
     else
         disp("no spike")
@@ -170,21 +185,6 @@ for k3=1:length(unit_id)
 
     end
 
-    subplot(4,8,[11 12]);
-    b = bar(centers,counts);
-    b.EdgeColor='None';
-    b.FaceColor='black';
-    b.BarWidth=0.9;
-    title(['theta index' ' ' num2str(thetaInd)])
-
-    ax2 = gca;
-    ax2.Box = 'off';
-    ax2.Color="none";
-    hold on
-    smoothed = general.smoothGauss(counts,0.5);
-    p = plot(centers,smoothed);
-    p.Color='red';
-    p.LineWidth=2;
 
     subplot(4,8,[19 20]);
     if length(activity_s) > 100
@@ -210,7 +210,7 @@ for k3=1:length(unit_id)
     clear lfp
     lfp(:,1) =  decimate(temp_time,decimate_rate);
     lfp(:,2) = decimate(temp_lfp,decimate_rate);
-    [~,~,~,~] = MTSpectrogram(lfp,'show','on','range',[0 60],'cutoffs',[0 8],'tapers',[3 5],'window',20);
+    [~,~,~,~] = MTSpectrogram(lfp,'show','on','range',[1 120],'cutoffs',[0 8],'tapers',[3 5],'window',5);
     colorbar
 
     clear image_name

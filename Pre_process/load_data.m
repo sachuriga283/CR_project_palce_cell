@@ -31,7 +31,12 @@ spikes_id = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' '
 spikes_amplitude = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/amplitudes.npy'])),' ',''));
 
 
-spike.spikes_t = double(readNPY([spikes_t(1).folder '/' spikes_t(1).name]))/30000;
+sample_time_name = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '/**/continuous/*/timestamps.npy'])),' ',''));
+sample_time = double(readNPY([sample_time_name(1).folder '/' sample_time_name(1).name]));
+spike_number = double(readNPY([spikes_t(1).folder '/' spikes_t(1).name]));
+spike.spikes_t = sample_time(spike_number);
+
+% spike.spikes_t = double(readNPY([spikes_t(1).folder '/' spikes_t(1).name]))/30000;
 spike.spike_id = double(readNPY([spikes_id(1).folder '/' spikes_id(1).name]));
 spike.spike_amplitude  = double(readNPY([spikes_amplitude(1).folder '/' spikes_amplitude(1).name]));
 

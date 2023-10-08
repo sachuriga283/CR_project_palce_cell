@@ -121,7 +121,7 @@ for k3=1:1:n
     plot.circularTurning(temp_s)
 
 
- polarhistogram(deg2rad(hdd),72)
+%     polarhistogram(deg2rad(hdd),72)
 
 
     axis square
