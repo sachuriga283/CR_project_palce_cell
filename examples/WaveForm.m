@@ -1,10 +1,10 @@
 clear all
 close all
 
-animalID = '65091';
-day_num = '2023-07-30';
-session_num = 'C';
-folder_recording = 'Q:\sachuriga\OpenEphys';
+animalID = '65409';
+day_num = '2023-11-30';
+session_num = 'A';
+folder_recording = 'S:\Ephys_Recording\CR_CA1';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
 save_plot='True';
 save_path='Q:\sachuriga\Record_archive\Record_examples';
@@ -35,6 +35,7 @@ gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of 
 temp = getWaveForms(gwfparams);
 wf{i} = temp;
 end
+
 
 %Extract the waveform from raw data
 [waveform] = load_wave_form_si(wf,unit_id, ...

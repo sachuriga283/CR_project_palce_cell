@@ -1,4 +1,4 @@
-function Load_place_cell(positions,hd,spike_train,unit_id,ch_id,continuous,options)
+function sum_data = Load_place_cell(positions,hd,spike_train,unit_id,ch_id,options)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,7 +8,6 @@ arguments
     spike_train cell
     unit_id double
     ch_id double
-    continuous struct
 
     options.Nbins (1,1)  {mustBeNumeric} = 100
     options.hdBinWidth (1,1)  {mustBeNumeric} = 10
@@ -62,20 +61,27 @@ for k3=1:length(unit_id)
     spike.amplitude{k3} = spike_train{6,k3};
     spike.activity_s{k3} = spike_train{1,k3};
     ch_i = ch_id(k3);
-    pre_lfp=continuous.samples(ch_i+1,:);
-    temp_lfp=double(pre_lfp)*0.1949999928474426;
-
-    temp_time = continuous.timestamps;
-    decimate_rate=150;
-    clear lfp
-    lfp(:,1) =  decimate(temp_time,decimate_rate);
-    lfp(:,2) = decimate(temp_lfp,decimate_rate);
-    spike.lfp{k3} = lfp;
+%     pre_lfp=continuous.samples(ch_i+1,:);
+%     temp_lfp=double(pre_lfp)*0.1949999928474426;
+% 
+%     temp_time = continuous.timestamps;
+%     decimate_rate=150;
+%     clear lfp
+%     lfp(:,1) =  decimate(temp_time,decimate_rate);
+%     lfp(:,2) = decimate(temp_lfp,decimate_rate);
+%     spike.lfp{k3} = lfp;
 end
 
 spike_name=[export_path '\' 'spike' '.mat'];
 spike_path=fullfile(join(spike_name));
 spike_export_path=strrep(spike_path,' ','');
 save(spike_export_path,"spike");
+
+sum_data = struct;
+sum_data.positions = positions;
+sum_data.velocity = velocity;
+sum_data.spike = spike;
+sum_data.hd = hd;
+sum_data.unit_id = unit_id;
 
 end

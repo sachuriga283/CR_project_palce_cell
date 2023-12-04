@@ -23,7 +23,7 @@ cd(TTL_state(1).folder)
 states_s = readNPY (TTL_state(1).name);
 
 % generate TTL time stemps
-time_f_t = time_s(states_s==-6);
+time_f_t = time_s(states_s==-3);
 
 cd(folder_recording)
 spikes_t = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy'])),' ',''));

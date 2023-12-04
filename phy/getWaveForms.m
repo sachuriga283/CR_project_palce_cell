@@ -50,7 +50,7 @@ for curUnitInd=1:numUnits
     curUnitnSpikes = size(curSpikeTimes,1);
     spikeTimesRP = curSpikeTimes(randperm(curUnitnSpikes));
     spikeTimeKeeps(curUnitInd,1:min([gwfparams.nWf curUnitnSpikes])) = sort(spikeTimesRP(1:min([gwfparams.nWf curUnitnSpikes])));
-    for curSpikeTime = 1:min([gwfparams.nWf curUnitnSpikes])
+    parfor curSpikeTime = 1:min([gwfparams.nWf curUnitnSpikes])
         temp1=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1);
         temp2=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end);
         tmpWf = mmf.Data.x(1:gwfparams.nCh,spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1):spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end));
@@ -63,8 +63,8 @@ end
 
 % Package in wf struct
 wf.unitIDs = unitIDs;
-wf.spikeTimeKeeps = spikeTimeKeeps;
-wf.waveForms = waveForms;
+% wf.spikeTimeKeeps = spikeTimeKeeps;
+%wf.waveForms = waveForms;
 wf.waveFormsMean = waveFormsMean;
 
 end
