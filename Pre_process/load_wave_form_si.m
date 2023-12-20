@@ -47,7 +47,6 @@ for i=1:length(unit_id)
     ch(i) = spikes_cluster_info.ch((spikes_cluster_info.cluster_id==unit_id(i))) + 1;
     shanks(i)=spikes_channel_groups(ch(i));
     ch_in_shanks = find(spikes_channel_groups==shanks(i));
-
     ch_positions_inshank = spikes_channel_positions(ch_in_shanks,:);
 
     ch_positions_inshank(:,2) = ch_positions_inshank(:,2)*M2;
@@ -60,8 +59,7 @@ for i=1:length(unit_id)
     clear temp_xcor
 
     temp_waveform_sem = nan(length(ch_in_shanks),time_window);
-    %
-            f1= figure;
+
             f2= figure;
     for j=1:length(ch_in_shanks)
 

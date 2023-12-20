@@ -1,8 +1,6 @@
-clear all
-close all
 
-animalID = '65409';
-day_num = '2023-11-30';
+animalID = '65410';
+day_num = '2023-12-05';
 session_num = 'A';
 folder_recording = 'S:\Ephys_Recording\CR_CA1';
 video_folder = 'Q:\sachuriga\OpenEphys_video';
@@ -22,20 +20,20 @@ spike_cluster= int64(readNPY([spikes_id(1).folder '/' spikes_id(1).name]));
 clear gwfparams
 
 gwfparams.dataDir = spikes_t(1).folder;    % KiloSort/Phy output folder
-gwfparams.fileName = 'recording.dat';         % .dat file containing the raw 
+gwfparams.fileName = 'recording.dat';         % .dat file containing the raw
 gwfparams.dataType = 'int16';            % Data type of .dat file (this should be BP filtered)
 gwfparams.nCh = 64;                      % Number of channels that were streamed to disk in .dat file
 gwfparams.wfWin = [-40 41];              % Number of samples before and after spiketime to include in waveform
-gwfparams.nWf = 2000;                    % Number of waveforms per unit to pull out
+gwfparams.nWf = 1000;                    % Number of waveforms per unit to pull out
 
 for i=1:length(unit_id)
-% for i=60:66
-gwfparams.spikeTimes = spike_time(find(spike_cluster==unit_id(i))); % Vector of cluster spike times (in samples) same length as .spikeClusters
-gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of cluster IDs (Phy nomenclature)   same length as .spikeTimes
-temp = getWaveForms(gwfparams);
-wf{i} = temp;
-end
+    % for i=60:66
+    gwfparams.spikeTimes = spike_time(find(spike_cluster==unit_id(i))); % Vector of cluster spike times (in samples) same length as .spikeClusters
+    gwfparams.spikeClusters = spike_cluster(spike_cluster==unit_id(i)); % Vector of cluster IDs (Phy nomenclature)   same length as .spikeTimes
+    temp = getWaveForms(gwfparams);
+    wf{i} = temp;
 
+end
 
 %Extract the waveform from raw data
 [waveform] = load_wave_form_si(wf,unit_id, ...

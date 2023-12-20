@@ -16,7 +16,7 @@ Amplitude = spike.spike_amplitude(spikes_v);
 spike_train=cell(4,length(unit_id));
 time_frame = time_f_t(1:length(dlc_m));
 
-[hd, positions] = load_positions(time_frame,dlc_m(:,2),dlc_m(:,3),dlc_m(:,5),dlc_m(:,6),dlc_m(:,8),dlc_m(:,9));
+[hd, positions] = load_positions(time_frame,dlc_m(:,2),dlc_m(:,3),dlc_m(:,14),dlc_m(:,15),dlc_m(:,8),dlc_m(:,9));
 
 %Cordination of central brain
 

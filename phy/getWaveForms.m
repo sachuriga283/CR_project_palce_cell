@@ -53,9 +53,18 @@ for curUnitInd=1:numUnits
     parfor curSpikeTime = 1:min([gwfparams.nWf curUnitnSpikes])
         temp1=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1);
         temp2=spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end);
+
         tmpWf = mmf.Data.x(1:gwfparams.nCh,spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(1):spikeTimeKeeps(curUnitInd,curSpikeTime)+gwfparams.wfWin(end));
-        waveForms(curUnitInd,curSpikeTime,:,:) = tmpWf(chMap,:);
+        tmp = smoothdata(double(tmpWf),2,'gaussian',5);
+        tmp = (tmp - mean(tmp(:,1:20),2))';
+        tmp(:,end+1:gwfparams.nCh) = nan(size(tmp,1),gwfparams.nCh-size(tmp,2));
+
+        %waveForms(curUnitInd,curSpikeTime,:,:) = tmpWf(chMap,:);
+       tmp=tmp';
+        waveForms(curUnitInd,curSpikeTime,:,:) = tmp(chMap,:);
+
     end
+    
     waveFormsMean(curUnitInd,:,:) = squeeze(nanmean(waveForms(curUnitInd,:,:,:),2));
     disp(['Completed ' int2str(curUnitInd) ' units of ' int2str(numUnits) '.']);
 end
@@ -63,8 +72,8 @@ end
 
 % Package in wf struct
 wf.unitIDs = unitIDs;
-% wf.spikeTimeKeeps = spikeTimeKeeps;
-%wf.waveForms = waveForms;
+wf.spikeTimeKeeps = spikeTimeKeeps;
+wf.waveForms = waveForms;
 wf.waveFormsMean = waveFormsMean;
 
 end

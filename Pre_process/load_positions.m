@@ -1,5 +1,5 @@
 
-function [hd, positions] = load_positions(time_frame,sx,sy,lx,ly,rx,ry)
+function [hd, positions] = load_positions(time_frame,sx,sy,nx,ny,rx,ry)
 %This function is for creating an postions matrixz which is Nx3 arry, 
 % N1 is time stemps, N2 is xcordinate of central head, 
 % N3 is ycordinate of central head.
@@ -21,22 +21,26 @@ function [hd, positions] = load_positions(time_frame,sx,sy,lx,ly,rx,ry)
 
 
 % Animals position
-for k2 = 1:1:length(lx)
-    cx(k2)=(lx(k2)+rx(k2))/2;
-    cy(k2)=(ly(k2)+ry(k2))/2;
-end
+% for k2 = 1:1:length(lx)
+%     cx(k2)=(lx(k2)+rx(k2))/2;
+%     cy(k2)=(ly(k2)+ry(k2))/2;
+% end
+
+
 
 temp_positions(:,1) = time_frame;
-temp_positions(:,2) = cx;
-temp_positions(:,3) = cy;
-temp_positions(:,2) = normalize(cx,"range");
-temp_positions(:,3) = normalize(cy,"range");
+temp_positions(:,2) = nx;
+temp_positions(:,3) = ny;
+temp_positions(:,2) = normalize(nx,"range");
+temp_positions(:,3) = normalize(ny,"range");
+
+
 
 pos_N(:,1) = time_frame;
 pos_N(:,2) = sx;
 pos_N(:,3) = sy;
-pos_N(:,4) = cx;
-pos_N(:,5) = cy;
+pos_N(:,4) = nx;
+pos_N(:,5) = ny;
 
 
 positions = temp_positions;

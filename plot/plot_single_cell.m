@@ -201,17 +201,17 @@ for k3=1:length(unit_id)
     subplot(4,8,[27 28])
     %LFP spectral
     clear lfp
-    ch_i = ch_id(k3);
-    pre_lfp=continuous.samples(ch_i+1,:);
-    temp_lfp=double(pre_lfp)*0.1949999928474426;
-
-    temp_time = continuous.timestamps;
-    decimate_rate=150;
-    clear lfp
-    lfp(:,1) =  decimate(temp_time,decimate_rate);
-    lfp(:,2) = decimate(temp_lfp,decimate_rate);
-    [~,~,~,~] = MTSpectrogram(lfp,'show','on','range',[1 120],'cutoffs',[0 8],'tapers',[3 5],'window',5);
-    colorbar
+%     ch_i = ch_id(k3);
+%     pre_lfp=continuous.samples(ch_i+1,:);
+%     temp_lfp=double(pre_lfp)*0.1949999928474426;
+% 
+%     temp_time = continuous.timestamps;
+%     decimate_rate=150;
+%     clear lfp
+%     lfp(:,1) =  decimate(temp_time,decimate_rate);
+%     lfp(:,2) = decimate(temp_lfp,decimate_rate);
+%     [~,~,~,~] = MTSpectrogram(lfp,'show','on','range',[1 120],'cutoffs',[0 8],'tapers',[3 5],'window',5);
+%     colorbar
 
     clear image_name
     image_name=[export_path '\' 'unit_id_' num2str(unit_id(k3)) '.jpg'];

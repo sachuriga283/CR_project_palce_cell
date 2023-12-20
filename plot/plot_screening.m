@@ -2,8 +2,8 @@
 function  plot_screening(positions,hd,spike_train,unit_id,options)
 
 arguments
-    positions {mustBeNonmissing}
-    hd {mustBeNonmissing}
+    positions double
+    hd double
     spike_train {mustBeNonmissing}
     unit_id {mustBeNonmissing}
     options.binWidth (1,1)  {mustBeNumeric} = 1/28
