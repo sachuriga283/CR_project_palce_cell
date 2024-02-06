@@ -81,7 +81,7 @@ function plot_SpeedCells(save_path,animalID,day_num, session_num)
         scrsz=get(0,'ScreenSize');
         set(gaf,'Position',scrsz);
         saveas(gca,[path 'speed_cell.jpg']);
-        close all
+        
         clear
         
 end

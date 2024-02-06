@@ -3,14 +3,14 @@ for nn=1:1
 
         clearvars -except nn mm
         
-        animalID='65283';
-        d={'2023-10-09'}
+        animalID='65565';
+        d={'2024-02-01'}
         day_num = char(d(nn));
         ss=['A','B','C']
         session_num = ss(mm);
 
-        folder_recording = 'S:/Ephys_Recording/CR_CA1';
-        video_folder = 'S:/Ephys_Vedio/CR_CA1';
+        folder_recording = 'S:/Ingvild/Ephys_recording/65565';
+        video_folder = 'S:/Ingvild/Video_recording';
         save_path='Q:/sachuriga/Record_archive/Record_examples';
         save_plot='True';
 
@@ -51,7 +51,7 @@ for nn=1:1
             unit_id, ...
             'binWidth',1/25,...
             'hdBinWidth', 12, ...
-            'smooth',2, ...
+            'smooth',1, ...
             'save_plot',save_plot,...
             'save_path',save_path,...
             'animalID',animalID,...

@@ -4,12 +4,12 @@ switch cell_type
 
     case "narrow_int"
         cmap = colormap('spring');
-        title(['narrow_int_unitID' num2str(unit_id)]);
+        title(['narrow_int_unitID' num2str(unit_id)],'Color','white');
     case "wide_int"
-        title(['wide_int_unitID' num2str(unit_id)]);
+        title(['wide_int_unitID' num2str(unit_id)],'Color','white');
         cmap = colormap('autumn');
     case "py"
-        title(['py_unitID' num2str(unit_id)]);
+        title(['py_unitID' num2str(unit_id)],'Color','white');
         cmap = colormap('cool');
 end
 

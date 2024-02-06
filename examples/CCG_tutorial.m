@@ -6,7 +6,7 @@
 
 % Load spikes struct
 % cd('your/basepath/')
-pwd = 'S:\Ephys_Recording\CR_CA1\65410_2023-12-04_13-38-02_A_phy_k'
+pwd = 'S:\Ephys_Recording\CR_CA1\65410_2023-12-05_15-46-15_A_phy_k'
 output_path = "Q:\sachuriga\Sachuriga_Matlab\Sorting_analyze\external"
 
 spikes = loadSpikes('basepath',pwd);
@@ -31,7 +31,7 @@ spikes_restrict.spindices = generateSpinDices(spikes_restrict.times);
 
 % Calculate the CCG across all cells
 binSize = 0.001; % 1ms bin size
-duration = 0.1; % -50ms:50ms window
+duration = 0.04; % -50ms:50ms window
 sr = 300000; % Sampling rate of your recording
 [ccg,t] = CCG(spikes_restrict.spindices(:,1),spikes_restrict.spindices(:,2),'binSize',binSize,'duration',duration,'Fs',1/sr);
 
@@ -43,12 +43,24 @@ plot(t,ccg(:,8,8)), title('ASCG'), xlabel('Time (seconds)'), ylabel('Count')
 % Plotting the cross correlogram (CCG) between a pair of cells
 [size_colum,size_raw] = plot_size(spikes_restrict.times)
 
-for i=1:64
+for i=1:75
     gaf=figure;
-    for k=1:64
+    kk = 1:75;
+    for k=1:75
         subplot(size_colum,size_raw,k)
+        if k==i
+             bar(t,ccg(:,i,kk(k)),'EdgeColor','none','FaceColor','red','BarWidth', 1), title('ACG','Color','red'), xlabel('Time (seconds)'), ylabel('Count')
+        else
+        bar(t,ccg(:,i,kk(k)),'EdgeColor','none','FaceColor','white','BarWidth', 1), title('CCG','Color','white'), xlabel('Time (seconds)'), ylabel('Count')
 
-        bar(t,ccg(:,i,k)), title('CCG'), xlabel('Time (seconds)'), ylabel('Count')
+        end
+        set(gca, 'Color', 'none');
+        ax=gca
+        ax.Color='none';
+        ax.XColor = 'white';
+        ax.YColor = 'white';
+        ax.Box="off";
+
     end
 
     scrsz=get(0,'ScreenSize');

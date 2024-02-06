@@ -31,6 +31,9 @@ function [hd, positions] = load_positions(time_frame,sx,sy,nx,ny,rx,ry)
 temp_positions(:,1) = time_frame;
 temp_positions(:,2) = nx;
 temp_positions(:,3) = ny;
+
+addpath('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datafun\', '-begin');
+addpath('C:\Program Files\MATLAB\R2022a\toolbox\matlab\datafun\', '-begin');
 temp_positions(:,2) = normalize(nx,"range");
 temp_positions(:,3) = normalize(ny,"range");
 

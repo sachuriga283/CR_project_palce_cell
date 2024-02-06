@@ -19,10 +19,10 @@ for j=1:length(data_path)
     spiketimes = double(sp1.st);
 
     gwfparams.dataDir = data_path{j};    % KiloSort/Phy output folder
-    gwfparams.fileName = 'recording.bin';         % .dat file containing the raw
+    gwfparams.fileName = 'recording.dat';         % .dat file containing the raw
     gwfparams.dataType = 'int16';            % Data type of .dat file (this should be BP filtered)
     gwfparams.nCh = 64;                      % Number of channels that were streamed to disk in .dat file
-    gwfparams.wfWin = [-15 16];              % Number of samples before and after spiketime to include in waveform
+    gwfparams.wfWin = [-40 41];              % Number of samples before and after spiketime to include in waveform
     gwfparams.nWf = 2000;                    % Number of waveforms per unit to pull out
 
     max_ch = nan(1,length(unit_id));

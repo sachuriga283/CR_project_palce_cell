@@ -23,7 +23,7 @@ cd(TTL_state(1).folder)
 states_s = readNPY (TTL_state(1).name);
 
 % generate TTL time stemps
-time_f_t = time_s(states_s==-6);
+time_f_t = time_s(states_s==-3);
 
 cd(folder_recording)
 spikes_t = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy'])),' ',''));
@@ -43,7 +43,8 @@ spike.spike_amplitude  = double(readNPY([spikes_amplitude(1).folder '/' spikes_a
 
 % Load dlc tracking file
 cd(video_folder)
-v_name = dir(strrep(fullfile(join([animalID '*' session_num '*' day_num '*_filtered.csv'])),' ',''));
+% v_name = dir(strrep(fullfile(join([animalID '*' session_num '*' day_num '*_filtered.csv'])),' ',''));
+v_name = dir(strrep(fullfile(join([animalID '*' day_num '_' session_num '*_filtered.csv'])),' ',''));
 dlc_m = readmatrix(v_name(1).name);
 
 end

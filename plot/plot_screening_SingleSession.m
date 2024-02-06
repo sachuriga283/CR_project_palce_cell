@@ -97,6 +97,7 @@ for k3=1:1:n
     activity_s=spike_train{1,k3};
 
     %     map = FiringMap([time_frame cx_n cy_n],[activity_s'],'smooth',options.smooth,'nBins',[nbin nbin]);
+    
     map = analyses.map(pos,activity_s','smooth',options.smooth,'binWidth',nbin,'blanks','off','minTime',0.5);
     plot.colorMap(map.z,map.time,'bar','on')
 
@@ -106,6 +107,7 @@ for k3=1:1:n
     hold on
     ax = gca; % 获取当前图形的坐标轴对象
     ax.YDir = 'reverse'; % 设置Y轴反向
+    colormap(ax, 'jet')
     title(['Hz' ' ' num2str(max(map.z,[],'all'))],['boarder score' ':' num2str(score)],'FontSize',5)
     xticks([1 (length(map.x)-1)])
     yticks([1 (length(map.y)-1)])
