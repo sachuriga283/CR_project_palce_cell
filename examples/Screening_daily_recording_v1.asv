@@ -3,18 +3,18 @@ for nn=1:1
 
         clearvars -except nn mm
         
-        animalID='65409';
+        animalID='65410';
         d={'2023-12-04'}
         day_num = char(d(nn));
         ss=['A','B','C']
         session_num = ss(mm);
 
-        folder_recording = 'S:\Sachuriga\Ephys_Recording\CR_CA1\';
-        video_folder = 'S:\Sachuriga\Ephys_Vedio\CR_CA1\';
+        folder_recording = 'S:\Ephys_Recording\CR_CA1\';
+        video_folder = 'S:\Ephys_Vedio\CR_CA1\';
         save_path='Q:/sachuriga/Record_archive/Record_examples';
         save_plot='True';
         
-        folder_recording = fullfile(join([folder_recording animalID '\']));
+        folder_recording = [folder_recording animalID '\']
         % save_path = '/Volumes/ntnu/mh-kin/quattrocolo/sachuriga/Sachuriga_Matlab/Sorting_analyze/CR_project_palce_cell/examples'
         % folder_recording = '/Volumes/ntnu/mh-kin/quattrocolo/sachuriga/OpenEphys';
         % video_folder = '/Volumes/ntnu/mh-kin/quattrocolo/sachuriga/OpenEphys_video';

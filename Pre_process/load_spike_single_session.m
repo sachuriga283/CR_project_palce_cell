@@ -2,8 +2,8 @@
 
 function [spike_train,hd,positions] = load_spike_single_session(time_f_t, spike, dlc_m,unit_id)
 
-% spike_train is a 4 x n cell arry, where spike_train{1,n} is the raw spike 
-% of unit n. spike_train{2,n} is the corresponding order of spike in position 
+% spike_train is a 4 x n cell arry, where spike_train{1,n} is the raw spike
+% of unit n. spike_train{2,n} is the corresponding order of spike in position
 % vector from unit n. spike_train{3,n} is the cordination of spike from
 % unit n. spike_train{4,k} is the head direction of spike from unit n.
 
@@ -27,7 +27,6 @@ spike_train{5,1}=unit_id;
 
 % spikes and spike_id with TTL
 for k=1:1:length(unit_id)
-
     clear id
     clear spike_train_t
     unit_id_0=unit_id(k);
@@ -46,7 +45,6 @@ for k=1:1:length(unit_id)
     spike_train{3,k} = activity;
     spike_train{4,k} = hd(position_s);
     spike_train{6,k} = Amplitude(id);
-    
 end
 
 
