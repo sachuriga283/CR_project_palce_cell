@@ -2,7 +2,7 @@ function [spikes] = spi_classify(spikes,positions)
 
 %% Set parameters
 disp('Setting parameters...');
-binWidth = 1/25;
+binWidth = 1/20;
 smoothBin = 1;
 
 minshift = 20; maxshift = 60; % seconds
@@ -18,7 +18,6 @@ for u = 1:n_units
     %unit = D.units(u);
     %spikeCounts = unit.spikeCounts;
     spikeTimes = spikes.spike_times{u};% grab original units spiketimes
-
     [pos,~] = pos_filtered_with_speed(positions.(spikes.UIfile(u)));
     %% Data Info
     t = pos(:,1); % your timestamps;
@@ -26,9 +25,12 @@ for u = 1:n_units
     sessionLength = t(end); % seconds
     maxshift = floor(sessionLength) - maxshift;
 
-    [spkPos, spkInd, rejected] = data.getSpikePositions(spikeTimes,pos);
+    [~, spkInd, ~] = data.getSpikePositions(spikeTimes,pos);
     spikeT=pos(spkInd,1);
-    firingRate = analyses.instantRate(spikeT, pos);
+
+    firingRate = instarate(spikeTimes, pos);
+
+    % firingRate = analyses.instantRate(spikeT, pos);
     spikecounts =  int64(firingRate);
 
     % calculate spatial ratemap
@@ -36,9 +38,18 @@ for u = 1:n_units
         'binWidth',binWidth, ...
         'minTime',0.1); % set additional parameters; we use 15x15 bins; smoothing = 1 or 2
     % calculate spatial info and other stats of the map
-    [information, sparsity, selectivity] = analyses.mapStatsPDF(map);
+    [information, ~, ~] = analyses.mapStatsPDF(map);
     % grab information content
     spikes.test_stat_si(u) = information.content;
+    [~, fields] = analyses.placefield(map);
+    spikes.fields(u) = length(fields);
+
+    if ~isempty(fields)
+        spikes.maxfsize(u) = (max([fields(:).size]))*0.625;
+    else
+        spikes.maxfsize(u) =nan;
+    end
+
 
     parfor n = 1:n_iters
         tic;
@@ -46,13 +57,13 @@ for u = 1:n_units
 
         shift_val = floor(minshift/tpf + (maxshift/tpf-minshift/tpf).*rand(1)); % Calculate shift in bins
         spikeCounts_shift = circshift(spikecounts, shift_val); % circularly shift spikes, wrap to start
-        [spikeTimes_shift, spikeInds_shift] = convert_train_to_times(full(spikeCounts_shift), t);
-        firingRate = analyses.instantRate(spikeTimes_shift, pos);
-
-        map = analyses.map(pos, [t firingRate],'smooth',smoothBin,'binWidth',binWidth,'minTime',0.1); % set additional parameters; we use 15x15 bins; smoothing = 1 or 2
+        [spikeTimes_shift, ~] = convert_train_to_times(full(spikeCounts_shift), t);
+        firingRate = instarate(spikeTimes, pos);
+        % firingRate = analyses.instantRate(spikeTimes_shift, pos);
+        map = analyses.map(pos, [t, firingRate],'smooth',smoothBin,'binWidth',binWidth,'minTime',0.1); % set additional parameters; we use 15x15 bins; smoothing = 1 or 2
 
         % calculate spatial info and other stats of the map
-        [information, sparsity, selectivity] = analyses.mapStatsPDF(map);
+        [information, ~, ~] = analyses.mapStatsPDF(map);
 
         % grab information content
         null_stat_si(n,u) = information.content;
@@ -67,7 +78,7 @@ end
 for u = 1:n_units
     percentile = 0.95;
     null_dist = null_stat_si(:,u);
-%     null_dist = spikes.null_stat_si{u}
+    %     null_dist = spikes.null_stat_si{u}
     test_stat = spikes.test_stat_si(u);
     spikes.reject_h0(u) = h0_test_nonparametric(test_stat, null_dist, percentile);
 end

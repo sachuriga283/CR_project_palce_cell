@@ -3,8 +3,8 @@ for nn=1:1
 
         clearvars -except nn mm
         
-        animalID='65409';
-        d={'2023-12-04'}
+        animalID='65588';
+        d={'2024-03-06'}
         day_num = char(d(nn));
         ss=['A','B','C']
         session_num = ss(mm);

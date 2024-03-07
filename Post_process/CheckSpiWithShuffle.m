@@ -43,7 +43,7 @@ for cellIndex = 1:numCells
 end
 
 % Function to calculate spatial information (implement your spatial information calculation method here)
-function spatialInfo = calculateSpatialInformation(spikeTimes)
+function spatialInfo = calculateSpatialInformation(~)
     % Implement your spatial information calculation method here
     % Example: spatialInfo = yourSpatialInfoFunction(spikeTimes);
     % ...

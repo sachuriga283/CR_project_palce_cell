@@ -24,7 +24,7 @@ for k = 1:length(files)
     path=fullfile([files(k).folder '\' files(k).name]);
     parts = split(files(k).name,'_');
 
-    [spk,position] = Load_nwb(path);
+    [spk,position,~] = Load_nwb(path); 
     spk.animal=repmat(parts{1}, height(spk), 1);
     spk.day=repmat(parts{2}, height(spk), 1);
     spk.session=repmat(parts{4}, height(spk), 1);
@@ -38,7 +38,7 @@ for k = 1:length(files)
     spk.UIfile=repmat(fname_new(2), height(spk), 1);
     spk.UIanimal_day=repmat([parts{1} strrep(parts{2}, '_', '')], height(spk), 1);
     spk.UIanimal_session=repmat([parts{1} parts{4}], height(spk), 1);
-
+    [spk] = spi_classify(spk,positions);
 
     merge_spk = [merge_spk;spk];
     clear position fname fname_sanitized fname_new spk parts

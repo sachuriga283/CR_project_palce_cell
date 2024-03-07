@@ -6,6 +6,7 @@ function [time_f_t,spike,dlc_m] = load_data(animalID,day_num,session_num,folder_
 animalID = animalID;
 day_num = day_num;
 session_num = session_num;
+path=[animalID '_' day_num '*' session_num '*' 'phy_k_manual'];
 
 % folder_recording = 'Q:\sachuriga\OpenEphys\';
 folder_recording=folder_recording;
@@ -26,9 +27,9 @@ states_s = readNPY (TTL_state(1).name);
 time_f_t = time_s(states_s==-3);
 
 cd(folder_recording)
-spikes_t = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_times.npy'])),' ',''));
-spikes_id = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/spike_clusters.npy'])),' ',''));
-spikes_amplitude = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '*' 'phy' '*' '/amplitudes.npy'])),' ',''));
+spikes_t = dir(strrep(fullfile(join([path '/spike_times.npy'])),' ',''));
+spikes_id = dir(strrep(fullfile(join([path  '/spike_clusters.npy'])),' ',''));
+spikes_amplitude = dir(strrep(fullfile(join([path '/amplitudes.npy'])),' ',''));
 
 
 sample_time_name = dir(strrep(fullfile(join([animalID '_' day_num '*' session_num '/**/continuous/*/timestamps.npy'])),' ',''));
